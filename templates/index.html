@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="local-token" content="{{ token }}">
-  <title>墨迹 · 个人笔迹工作台</title>
+  <title>作业补完计划 · 个人笔迹工作台</title>
   <link rel="stylesheet" href="/static/style.css">
   <script src="/static/app.js" defer></script>
 </head>
 <body>
   <aside class="rail">
-    <a class="brand" href="/" aria-label="墨迹首页"><span class="brand-icon">墨</span><span>墨迹<small>PERSONAL INK ARCHIVE</small></span></a>
+    <a class="brand" href="/" aria-label="作业补完计划首页"><span class="brand-icon">作</span><span>作业补完计划<small>PERSONAL INK ARCHIVE</small></span></a>
     <div class="local-pill"><i></i> 本地运行 · 档案存于此电脑</div>
     <label class="rail-label" for="profileSelect">当前笔迹档案</label>
     <select id="profileSelect" aria-label="当前笔迹档案"></select>
@@ -80,7 +80,7 @@
       <details class="panel disclosure" id="inferredDetails"><summary>缺字处理：AI 补字</summary><p class="muted">参考至少 4 个真实样本推测缺字；结果自动标记为 AI 推测，不计入真实覆盖，可随时检查或排除。</p><div class="toolbar"><input id="inferCharacters" placeholder="缺字，每批 1–3 个，如 qZ7" aria-label="待推测缺字"><button class="secondary" id="inferGlyphs">根据真实笔迹补字</button></div><div id="inferredGrid" class="inferred-grid"></div></details>
     </section>
     <section id="view-settings" class="view"><div class="heading"><div><div class="eyebrow">AI FIRST, LOCAL FALLBACK</div><h1>AI 优先处理，档案保存在本地。</h1><p>配置视觉模型后，默认用 AI 识别笔迹、读取题目并生成待审阅答案；未配置或失败时使用本地备选。</p></div></div><div class="settings-layout"><div class="panel"><h2>AI 优先识别 / 解题服务</h2><p class="muted">兼容 Chat Completions 接口。不同服务的视觉输入格式与模型权限可能不同；填写配置不代表连接一定成功。</p><label for="cloudPreset">服务预设</label><select id="cloudPreset"><option value="custom">自定义 OpenAI 兼容服务</option><option value="deepseek">DeepSeek 官方 · deepseek-flash（视觉）</option></select><p class="muted"><a href="https://api-docs.deepseek.com/guides/vision/" target="_blank" rel="noreferrer">DeepSeek 图像接口说明</a>。预设填写地址、模型及图像能力，密钥由使用者提供。</p><label class="check-label"><input type="checkbox" id="cloudFirst">默认 AI 优先；无法使用时切换本地备选</label><label class="check-label"><input type="checkbox" id="cloudEnabled">启用云端服务</label><label class="check-label"><input type="checkbox" id="cloudVision">所选模型支持 image_url 图像输入</label><label class="check-label"><input type="checkbox" id="autoReview">导入样本后自动运行 AI 字形校对与入库</label><label class="check-label"><input type="checkbox" id="autoInfer">预览缺字时优先提出 AI 补字（每批最多 3 个）</label><label class="check-label"><input type="checkbox" id="autoCompare">预览通过后优先对独立样本进行 AI 笔迹对照</label><label for="cloudBase">服务地址 / Base URL</label><input id="cloudBase" type="url" placeholder="https://api.openai.com/v1"><label for="cloudModel">模型 ID（识别需视觉能力）</label><input id="cloudModel" placeholder="填写服务商实际模型 ID"><label for="cloudKey">API 密钥</label><input id="cloudKey" type="password" autocomplete="new-password" placeholder="保存在本机，留空保持已有密钥"><label for="maxTokens">单次最大输出 token</label><input id="maxTokens" type="number" min="100" max="10000" value="8000"><p class="muted">如服务返回用量，记录 token 数量。</p><div class="button-row"><button class="primary" id="saveConfig">确认保存服务配置</button><button class="danger-quiet" id="clearCloudKey">清除密钥</button></div><p id="cloudConfigStatus" class="muted"></p></div><div><div class="panel"><h2>本地能力</h2><dl class="capabilities"><dt>文字定位</dt><dd id="ocrCapability"></dd><dt>字形档案</dt><dd id="dataLocation"></dd><dt>真实 / 生成隔离</dt><dd>真实样本与 AI 推测样本单独标记；独立对照和所有导出文件不参与真实样本统计。</dd><dt>扫描件分类</dt><dd>本地无法可靠区分黑色印刷、手写与批改；启用视觉 AI 可自动判断，不确定的候选保留待处理。</dd><dt>公式内容</dt><dd>支持 TeX 子集，保存 AST。未支持命令会报错；不静默删符号。</dd></dl></div><div class="panel"><h2>简明流程</h2><ol class="howto"><li>我的笔迹：上传亲笔旧作业，配置 AI 后自动提取并整理字形。</li><li>填写答案：上传题目，AI 逐题识别、解答并安排书写位置；也可手动输入。</li><li>预览与导出：按提示处理缺字和位置，核对每页后导出 PDF。</li></ol><p class="muted">此工具生成书写呈现；答案正确性仍需审阅。保存成功的数据在刷新和关闭后保留。可备份整个 data 文件夹，包含原稿与密钥时请妥善保管。</p></div></div></div><div class="panel"><div class="section-title"><h2>最近云端调用记录</h2><button class="quiet" id="refreshEvents">刷新</button></div><div id="cloudEvents" class="muted">尚未调用云端服务。</div></div></section>
-    <footer>墨迹 / 本地个人笔迹工作台 <span>真实来源 · 可编辑内容 · 可检查导出</span></footer>
+    <footer>作业补完计划 / 本地个人笔迹工作台 <span>真实来源 · 可编辑内容 · 可检查导出</span></footer>
   </main>
   <div id="toast" role="status" aria-live="polite"></div>
   <dialog id="textDialog"><form method="dialog"><h2 id="textDialogTitle"></h2><p id="textDialogHelp" class="muted"></p><input id="textDialogInput" autocomplete="off"><div class="button-row end"><button value="cancel" class="secondary">取消</button><button value="ok" class="primary">确认</button></div></form></dialog>
